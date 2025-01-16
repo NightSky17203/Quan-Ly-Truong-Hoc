@@ -1,0 +1,170 @@
+extends ../../layouts/default.pug
+block main
+    aside#sidenav-main.sidenav.navbar.navbar-vertical.navbar-expand-xs.border-0.border-radius-xl.my-3.fixed-start.ms-3
+    main.main-content.position-relative.max-height-vh-100.h-100.border-radius-lg
+        nav#navbarBlur.navbar.navbar-main.navbar-expand-lg.px-0.mx-4.shadow-none.border-radius-xl(navbar-scroll='true')
+        .container-fluid.py-4
+            .row
+                .col-12
+                    .card.mb-4
+                        .card-header.d-flex.pb-0
+                            h6 Khoa
+                            .ms-md-auto.pe-md-3.d-flex.align-items-center
+                                i.fas.fa-search(aria-hidden='true')
+                                input.form-control(type='text', placeholder='Tìm Theo Mã...')
+                            ul.navbar-nav.justify-content-end
+                                li.nav-item.d-flex.align-items-center
+                                    a.btn.btn-outline-primary.btn-sm.mb-0.me-3(target='_blank', href='#',type='submit') Thêm Khoa
+                        .card-body.px-0.pt-0.pb-2
+                            .table-responsive.p-0
+                                table.table.align-items-center.mb-0
+                                    thead
+                                        tr
+                                            th.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7.ps-2 ID
+                                            th.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7.ps-2 Mã Khoa
+                                            th.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7.ps-2 Ten Khoa
+                                            th.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7 Sửa
+
+                                            th.text-center.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7 
+                                            th.text-secondary.opacity-7
+                                    tbody
+                                    each row in data
+                                        tr
+                                            td
+                                                p.text-xs.text-secondary.mb-0= row.id_khoa
+                                            td
+                                                p.text-xs.text-secondary.mb-0= row.makhoa
+                                            td
+                                                p.text-xs.text-secondary.mb-0= row.tenkhoa
+                                            td
+                                                a(target='_blank', href='#') Thêm Khoa
+
+                                    //- tbody
+                                        each row in data
+                                            tr
+                                                td
+                                                    p.text-xs.text-secondary.mb-0= row.id_khoa
+                                        td
+                                            p.text-xs.font-weight-bold.mb-0 Manager
+                                            p.text-xs.text-secondary.mb-0 Organization
+                                        td.align-middle.text-center.text-sm
+                                            span.badge.badge-sm.bg-gradient-success Online
+                                        td.align-middle.text-center
+                                            span.text-secondary.text-xs.font-weight-bold 23/04/18
+                                        td.align-middle
+                                            a.text-secondary.font-weight-bold.text-xs(href='javascript:;', data-toggle='tooltip', data-original-title='Edit user')
+                                            | Edit
+                                        tr
+                                        td
+                                            .d-flex.px-2.py-1
+                                            div
+                                                img.avatar.avatar-sm.me-3(src='/assets/img/team-3.jpg', alt='user2')
+                                            .d-flex.flex-column.justify-content-center
+                                                h6.mb-0.text-sm Alexa Liras
+                                                p.text-xs.text-secondary.mb-0 alexa@creative-tim.com
+                                        td
+                                            p.text-xs.font-weight-bold.mb-0 Programator
+                                            p.text-xs.text-secondary.mb-0 Developer
+                                        td.align-middle.text-center.text-sm
+                                            span.badge.badge-sm.bg-gradient-secondary Offline
+                                        td.align-middle.text-center
+                                            span.text-secondary.text-xs.font-weight-bold 11/01/19
+                                        td.align-middle
+                                            a.text-secondary.font-weight-bold.text-xs(href='javascript:;', data-toggle='tooltip', data-original-title='Edit user')
+                                            | Edit
+                                        tr
+                                        td
+                                            .d-flex.px-2.py-1
+                                            div
+                                                img.avatar.avatar-sm.me-3(src='/assets/img/team-4.jpg', alt='user3')
+                                            .d-flex.flex-column.justify-content-center
+                                                h6.mb-0.text-sm Laurent Perrier
+                                                p.text-xs.text-secondary.mb-0 laurent@creative-tim.com
+                                        td
+                                            p.text-xs.font-weight-bold.mb-0 Executive
+                                            p.text-xs.text-secondary.mb-0 Projects
+                                        td.align-middle.text-center.text-sm
+                                            span.badge.badge-sm.bg-gradient-success Online
+                                        td.align-middle.text-center
+                                            span.text-secondary.text-xs.font-weight-bold 19/09/17
+                                        td.align-middle
+                                            a.text-secondary.font-weight-bold.text-xs(href='javascript:;', data-toggle='tooltip', data-original-title='Edit user')
+                                            | Edit
+                                        tr
+                                        td
+                                            .d-flex.px-2.py-1
+                                            div
+                                                img.avatar.avatar-sm.me-3(src='../assets/img/team-3.jpg', alt='user4')
+                                            .d-flex.flex-column.justify-content-center
+                                                h6.mb-0.text-sm Michael Levi
+                                                p.text-xs.text-secondary.mb-0 michael@creative-tim.com
+                                        td
+                                            p.text-xs.font-weight-bold.mb-0 Programator
+                                            p.text-xs.text-secondary.mb-0 Developer
+                                        td.align-middle.text-center.text-sm
+                                            span.badge.badge-sm.bg-gradient-success Online
+                                        td.align-middle.text-center
+                                            span.text-secondary.text-xs.font-weight-bold 24/12/08
+                                        td.align-middle
+                                            a.text-secondary.font-weight-bold.text-xs(href='javascript:;', data-toggle='tooltip', data-original-title='Edit user')
+                                            | Edit
+                                        tr
+                                        td
+                                            .d-flex.px-2.py-1
+                                            div
+                                                img.avatar.avatar-sm.me-3(src='../assets/img/team-2.jpg', alt='user5')
+                                            .d-flex.flex-column.justify-content-center
+                                                h6.mb-0.text-sm Richard Gran
+                                                p.text-xs.text-secondary.mb-0 richard@creative-tim.com
+                                        td
+                                            p.text-xs.font-weight-bold.mb-0 Manager
+                                            p.text-xs.text-secondary.mb-0 Executive
+                                        td.align-middle.text-center.text-sm
+                                            span.badge.badge-sm.bg-gradient-secondary Offline
+                                        td.align-middle.text-center
+                                            span.text-secondary.text-xs.font-weight-bold 04/10/21
+                                        td.align-middle
+                                            a.text-secondary.font-weight-bold.text-xs(href='javascript:;', data-toggle='tooltip', data-original-title='Edit user')
+                                            | Edit
+                                        tr
+                                        td
+                                            .d-flex.px-2.py-1
+                                            div
+                                                img.avatar.avatar-sm.me-3(src='../assets/img/team-4.jpg', alt='user6')
+                                            .d-flex.flex-column.justify-content-center
+                                                h6.mb-0.text-sm Miriam Eric
+                                                p.text-xs.text-secondary.mb-0 miriam@creative-tim.com
+                                        td
+                                            p.text-xs.font-weight-bold.mb-0 Programtor
+                                            p.text-xs.text-secondary.mb-0 Developer
+                                        td.align-middle.text-center.text-sm
+                                            span.badge.badge-sm.bg-gradient-secondary Offline
+                                        td.align-middle.text-center
+                                            span.text-secondary.text-xs.font-weight-bold 14/09/20
+                                        td.align-middle
+                                            a.text-secondary.font-weight-bold.text-xs(href='javascript:;', data-toggle='tooltip', data-original-title='Edit user')
+                                            | Edit
+            footer.footer.pt-3
+                .container-fluid
+                .row.align-items-center.justify-content-lg-between
+                    .col-lg-6.mb-lg-0.mb-4
+                    .copyright.text-center.text-sm.text-muted.text-lg-start
+                        | &copy; 
+                        script.
+                        document.write(new Date().getFullYear())
+                        | ,
+                        | made with 
+                        i.fa.fa-heart
+                        |  by
+                        a.font-weight-bold(href='https://www.creative-tim.com', target='_blank') Creative Tim
+                        | for a better web.
+                    .col-lg-6
+                    ul.nav.nav-footer.justify-content-center.justify-content-lg-end
+                        li.nav-item
+                        a.nav-link.text-muted(href='https://www.creative-tim.com', target='_blank') Creative Tim
+                        li.nav-item
+                        a.nav-link.text-muted(href='https://www.creative-tim.com/presentation', target='_blank') About Us
+                        li.nav-item
+                        a.nav-link.text-muted(href='https://www.creative-tim.com/blog', target='_blank') Blog
+                        li.nav-item
+                        a.nav-link.pe-0.text-muted(href='https://www.creative-tim.com/license', target='_blank') License
