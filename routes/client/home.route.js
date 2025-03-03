@@ -1,8 +1,8 @@
 import express, { application, query } from 'express';
-import homeController from '../../Controller/client/home.controller.js'; 
+import facultyController from '../../Controller/client/faculty.controller.js'; 
 
 const router = express.Router();
 
-router.get("/",homeController.index);
-router.post("/them",homeController.create);
+// router.get("/",homeController.index);
+// router.post("/them",homeController.create);
 export default router; 
