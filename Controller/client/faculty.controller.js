@@ -1,12 +1,11 @@
 import { connection, conn } from '../../Config/database.js';
 import { facultyModel } from '../../Model/Faculty.model.js';
-export default (app)=>{
-    //Insert
-    app.post("/api/v1/faculty/insert", async(req,res)=>{
-        const {
-            id_khoa,
-            makhoa,
-            tenkhoa
+//Insert
+    const insert = async(req,res)=>{
+    const {
+        id_khoa,
+        makhoa,
+        tenkhoa
         } = req.body
         try{
             const [checkkhoa] = await facultyModel.checkFaculty(makhoa);
@@ -29,24 +28,31 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
+    }
     
     // GET Faculty list with pagination and search
-    app.get("/api/v1/faculty/list", async(req,res)=>{ 
+    const listFaculty = async(req,res)=>{ 
         try {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
             const search = req.query.search || '';
             const offset = (page - 1) * limit;
+            // console.log(offset);
+            // console.log(limit);
+            // console.log(search);
+            // console.log(page);
     
-            const searchValue = search ? [`%${search}%`] : [];
-    
-            const [countResult] = await facultyModel.CountFaculty(searchValue,searchValue);  
+            const searchValue = search 
+            ? [`%${search}%`] : [];
 
-            const totalRecords = countResult[0].total;
+            
+            const [countResult] = await facultyModel.CountFaculty(searchValue);  
+            
+
+            const totalRecords = countResult[0].total;  
             const totalPages = Math.ceil(totalRecords / limit); 
     
-            const [rows] = await facultyModel.GetallFaculty(...searchValue, limit, offset);
+            const [rows] = await facultyModel.GetallFaculty(searchValue,limit, offset);
     
             const result = rows.map(row => ({
                 id: row.id_khoa,
@@ -73,10 +79,10 @@ export default (app)=>{
                 error: err.message
             });
         }
-    })
+    }
     
     //Delete
-    app.delete("/api/v1/faculty/delete",async(req,res)=>{
+    const deleteFaculty = async(req,res)=>{
         const makhoa = req.body.makhoa;
         try{
             const [checkkhoa] = await facultyModel.checkFaculty(makhoa);
@@ -116,10 +122,10 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
+    }
     
     //Update
-    app.post("/api/v1/faculty/update",async(req, res)=>{
+   const updateFaculty = async(req, res)=>{
         // res.setHeader("Content-Type: application/json");
     
         const {id_khoa, makhoa,tenkhoa} = req.body;
@@ -146,6 +152,8 @@ export default (app)=>{
                 error: err.message
             })
         }   
-    })
-}
+    }
+
+
+export default {insert, listFaculty, deleteFaculty, updateFaculty,};
 

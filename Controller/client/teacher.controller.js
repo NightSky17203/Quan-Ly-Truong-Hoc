@@ -1,16 +1,14 @@
 import { connection, conn } from '../../Config/database.js';
 import { teacherModel } from '../../Model/Teacher.Model.js';
 
-export default (app)=>{
-    
     // GET
-    app.get("/api/v1/teacher/list",async(req,res)=>{
+    const listTeacher = async(req,res)=>{
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const search = req.query.search || '';
         const offset = (page - 1) * limit;
 
-        const searchValue = search 
+        const searchValue = search  
             ? [search]
             : [];
         
@@ -46,13 +44,13 @@ export default (app)=>{
                     limit: limit
                 }
             });
-        })
+        }
 
 
 
 
     // Insert
-    app.post("/api/v1/teacher/insert", async (req, res) => {
+    const insertTeacher = async (req, res) => {
         const {
             id_giaovien,
             magiaovien,
@@ -113,10 +111,10 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
+    }
 
     //Update
-    app.post("/api/v1/teacher/update", async (req, res) => {
+    const updateTeacher = async (req, res) => {
         const {
             id_giaovien,
             magiaovien,
@@ -170,10 +168,10 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
+    }
 
     //Delete
-    app.delete("/api/v1/teacher/delete", async (req, res) => {
+    const deleteTeacher = async (req, res) => {
         const magiaovien = req.body.magiaovien;
         try{
             const [checkgiaovien] = await teacherModel.checkTeacher(magiaovien);
@@ -196,9 +194,9 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
+    }
     //Status
-    app.post("/api/v1/teacher/update/status", async (req, res) => {
+    const updateTeacherStatus = async (req, res) => {
         const {
             magiaovien,
             status,
@@ -232,5 +230,6 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
-}
+    }
+
+export default {listTeacher, insertTeacher, updateTeacher, deleteTeacher, updateTeacherStatus,};

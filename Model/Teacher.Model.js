@@ -2,17 +2,28 @@ import { connection, conn } from '../Config/database.js';
 
 const teacherModel = {
     async GetallTeacher(SearchValue,Limit,Offset){
-        const sql = `SELECT * FROM quanlygiaovien WHERE magiaovien = ? OR tengiaovien = ? OR email = ? OR sdt = ? LIMIT ? OFFSET ?`;
-        return await conn.promise().query(sql,[SearchValue,SearchValue,SearchValue,SearchValue,Limit,Offset]);  
+        const SeachCondition = SearchValue.length > 0
+        ? 'WHERE magiaovien = ? OR tengiaovien = ? OR email = ? OR sdt = ?'
+        : '';
+        const sql = `SELECT * FROM quanlygiaovien ${SeachCondition} LIMIT ? OFFSET ?`;
+        const params = SearchValue.length > 0 ? [SearchValue,SearchValue,SearchValue,SearchValue,Limit,Offset] : [Limit,Offset];
+        return await conn.promise().query(sql,params);
     },
+
     async CountTeacher(SearchValue){
-        const sql = `SELECT COUNT(*) as total FROM quanlygiaovien WHERE magiaovien = ? OR tengiaovien = ? OR email = ? OR sdt = ?`;
-        return await conn.promise().query(sql,[SearchValue,SearchValue,SearchValue,SearchValue]);     
+        const SeachCondition = SearchValue.length > 0
+        ? 'WHERE magiaovien = ? OR tengiaovien = ? OR email = ? OR sdt = ?'
+        : '';
+        const sql = `SELECT COUNT(*) as total FROM quanlygiaovien ${SeachCondition}`;
+        const params = SearchValue.length > 0 ? [SearchValue,SearchValue,SearchValue,SearchValue] : [];
+        return await conn.promise().query(sql,params);
     },
+
     async checkTeacher(magiaovien){
         const sql = `select * from quanlygiaovien where magiaovien = ?`;
         return await conn.promise().query(sql,[magiaovien]);  
     },
+    
     async checkFaculty(tenkhoa){
         const sql = `select * from quanlykhoa where tenkhoa = ?`;
         return await conn.promise().query(sql,[tenkhoa]);  

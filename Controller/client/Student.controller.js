@@ -1,9 +1,8 @@
 import { connection, conn } from '../../Config/database.js';
 import { studentModel } from '../../Model/Student.model.js';
-export default (app)=>{
-    
-    // GET
-    app.get("/api/v1/student/list",async(req,res)=>{
+
+
+    const listStudent = async(req,res)=>{
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const search = req.query.search || '';
@@ -51,11 +50,11 @@ export default (app)=>{
                     limit: limit
                 }
             });
-        })
+        }
     
     
     //Insert
-    app.post("/api/v1/student/insert", async (req, res) => {
+    const insertStudent = async (req, res) => {
         const {
             id_sinhvien,
             msv,
@@ -117,10 +116,10 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
+    }
     
     //Update
-    app.post("/api/v1/student/update", async (req, res) => {
+    const updateStudent = async (req, res) => {
         const {
             id_sinhvien,
             msv,
@@ -178,10 +177,10 @@ export default (app)=>{
             })
         }
         
-    })
+    }
     
     //Status
-    app.post("/api/v1/student/update/status", async (req, res) => {
+    const updateStudentStatus = async (req, res) => {
         const {
             msv,
             status,
@@ -211,10 +210,10 @@ export default (app)=>{
             console.log(err);
             return res.status(500).send('Loi server')
         }
-    })
+    }
     
     //Delete
-    app.delete("/api/v1/student/delete", async (req, res) => {
+    const deleteStudent = async (req, res) => {
         const msv = req.body.msv;
         try{
             const[rows]= await studentModel.checkStudent(msv);
@@ -237,12 +236,5 @@ export default (app)=>{
                 error: err.message
             })
         }
-    })
-}
-
-const index = (req,res)=>{
-    res.render("client/pages/SinhVien/sinhvien.pug",{
-        PageTitle : "Sinh Vien"
-    });
-}
- 
+    }
+ export default {listStudent, insertStudent, updateStudent, updateStudentStatus, deleteStudent,};

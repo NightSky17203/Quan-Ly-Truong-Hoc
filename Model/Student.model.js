@@ -2,12 +2,20 @@ import { connection, conn } from '../Config/database.js';
 
 const studentModel = {
     async GetallStudent(SearchValue,Limit,Offset){
-        const sql = `SELECT * FROM quanlysinhvien WHERE msv = ? OR tensinhvien = ? OR sdt = ? OR email = ? LIMIT ? OFFSET ?`;
-        return await conn.promise().query(sql,[SearchValue,SearchValue,SearchValue,SearchValue,Limit,Offset]);  
+        const searchCondition = SearchValue.length >0
+        ? 'WHERE msv = ? OR tensinhvien = ? OR sdt = ? OR email = ?'
+        : '';
+        const sql = `SELECT * FROM quanlysinhvien ${searchCondition} LIMIT ? OFFSET ?`;
+        const params = SearchValue.length > 0 ? [SearchValue,SearchValue,SearchValue,SearchValue,Limit,Offset] : [Limit,Offset];
+        return await conn.promise().query(sql,params);  
     },
     async CountStudent(SearchValue){
-        const sql = `SELECT COUNT(*) as total FROM quanlysinhvien WHERE msv = ? OR tensinhvien = ? OR sdt = ? OR email = ?`;
-        return await conn.promise().query(sql,[SearchValue,SearchValue,SearchValue,SearchValue]);     
+        const searchCondition = SearchValue.length >0
+        ? 'WHERE msv = ? OR tensinhvien = ? OR sdt = ? OR email = ?'
+        : '';
+        const sql = `SELECT COUNT(*) as total FROM quanlysinhvien ${searchCondition}`;
+        const params = SearchValue.length > 0 ? [SearchValue,SearchValue,SearchValue,SearchValue] : [];
+        return await conn.promise().query(sql,params);     
     },
     async checkStudent(msv){
         const sql = `select * from quanlysinhvien where msv = ?`;
