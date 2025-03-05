@@ -1,11 +1,11 @@
 import express, { application, query } from 'express';
 import facultyController from '../../Controller/client/faculty.controller.js'; 
-
+import { verifytoken } from '../../Middleware/auth.Middleware.js';
 const router = express.Router();
 
-router.post("/insert",facultyController.insert);
-router.get("/list",facultyController.listFaculty);
-router.post("/update",facultyController.updateFaculty);
-router.post("/delete",facultyController.deleteFaculty);
+router.post("/insert",verifytoken,facultyController.insert);
+router.get("/list",verifytoken,facultyController.listFaculty);
+router.post("/update",verifytoken,facultyController.updateFaculty);
+router.delete("/delete",verifytoken,facultyController.deleteFaculty);
 
 export default router; 
