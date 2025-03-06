@@ -21,9 +21,9 @@ const studentModel = {
         const sql = `select * from quanlysinhvien where msv = ?`;
         return await conn.promise().query(sql,[msv]);  
     },
-    async checkFaculty(makhoa){
-        const sql = `select * from quanlykhoa where makhoa = ?`;
-        return await conn.promise().query(sql,[makhoa]);  
+    async checkFaculty(tenkhoa){
+        const sql = `select * from quanlykhoa where tenkhoa = ?`;
+        return await conn.promise().query(sql,[tenkhoa]);  
     },
     async CheckStudentPhone(sdt){
         const sql = `select * from quanlysinhvien where sdt = ?`;

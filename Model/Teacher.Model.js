@@ -36,8 +36,8 @@ const teacherModel = {
         const sql = `select * from quanlygiaovien where email = ?`;
         return await conn.promise().query(sql,[email]);  
     },
-    async InsertTeacher(magiaovien,tengiaovien,tenkhoa,gioitinh,email,sdt,ngaysinh,status){
-        const sql = `insert into quanlygiaovien (id_giaovien,magiaovien,tengiaovien,tenkhoa,gioitinh,email,sdt,ngaysinh,status) value (?,?,?,?,?,?,?,?)`;
+    async InsertTeacher(id_giaovien,magiaovien,tengiaovien,tenkhoa,gioitinh,email,sdt,ngaysinh,status){
+        const sql = `insert into quanlygiaovien (id_giaovien,magiaovien,tengiaovien,tenkhoa,gioitinh,email,sdt,ngaysinh,status) value (?,?,?,?,?,?,?,?,?)`;
         return await conn.promise().query(sql,[id_giaovien,magiaovien,tengiaovien,tenkhoa,gioitinh,email,sdt,ngaysinh,status]);  
     },
     async updateTeacher(tengiaovien,tenkhoa,gioitinh,email,sdt,ngaysinh,status,magiaovien){
