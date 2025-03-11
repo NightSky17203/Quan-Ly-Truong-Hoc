@@ -7,6 +7,24 @@ import { facultyModel } from '../../Model/Faculty.model.js';
         makhoa,
         tenkhoa
         } = req.body
+        if (!makhoa || !tenkhoa) {
+            return res.status(400).send({
+                status: 400,
+                Message: "Thiếu thông tin"
+            });
+        }
+        if(typeof makhoa !== 'string' || typeof tenkhoa !== 'string') {
+            return res.status(400).send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ"
+            });
+        }
+        if(makhoa.trim() === '' || tenkhoa.trim() === '') {
+            return res.status(400).send({
+                status: 400,
+                Message: "Dữ liệu không được để trống"
+            });
+        }
         try{
             const [checkkhoa] = await facultyModel.checkFaculty(makhoa);
                 if(checkkhoa.length > 0)
@@ -37,10 +55,7 @@ import { facultyModel } from '../../Model/Faculty.model.js';
             const limit = parseInt(req.query.limit) || 10;
             const search = req.query.search || '';
             const offset = (page - 1) * limit;
-            // console.log(offset);
-            // console.log(limit);
-            // console.log(search);
-            // console.log(page);
+
     
             const searchValue = search 
             ? [`%${search}%`] : [];
@@ -84,6 +99,24 @@ import { facultyModel } from '../../Model/Faculty.model.js';
     //Delete
     const deleteFaculty = async(req,res)=>{
         const makhoa = req.body.makhoa;
+        if(!makhoa){
+            return res.status(400).send({
+                status: 400,
+                Message: "Thiếu thông tin"
+            });
+        }
+        if(typeof makhoa !== 'string'){
+            return res.status(400).send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ"
+            });
+        }
+        if(makhoa.trim() === ''){
+            return res.status(400).send({
+                status: 400,
+                Message: "Dữ liệu không được để trống"
+            });
+        }
         try{
             const [checkkhoa] = await facultyModel.checkFaculty(makhoa);
                 if(checkkhoa.length === 0)
@@ -93,11 +126,6 @@ import { facultyModel } from '../../Model/Faculty.model.js';
                     }
                 );
             const tenkhoa = req.body.tenkhoa = checkkhoa[0].tenkhoa;
-                    // const checkQuery = `
-                    // SELECT 
-                    //     (SELECT COUNT(*) FROM quanlygiaovien WHERE tenkhoa = ?) AS teacherCount,
-                    //     (SELECT COUNT(*) FROM quanlysinhvien WHERE tenkhoa = ?) AS studentCount
-                    // `;
                 const [result] = await facultyModel.checkQuery(tenkhoa);
                     console.log(result);
                     const teacherCount = result[0].teacherCount;
@@ -130,6 +158,24 @@ import { facultyModel } from '../../Model/Faculty.model.js';
     
         const {id_khoa, makhoa,tenkhoa} = req.body;
         console.log(`id: ${id_khoa}, makhoa: ${makhoa}, tenkhoa: ${tenkhoa}`)
+        if(!makhoa || !tenkhoa){
+            return res.status(400).send({
+                status: 400,
+                Message: "Thiếu thông tin"
+            });
+        }   
+        if(typeof makhoa !== 'string' || typeof tenkhoa !== 'string'){
+            return res.status(400).send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ"
+            });
+        }
+        if(makhoa.trim() === '' || tenkhoa.trim() === ''){
+            return res.status(400).send({
+                status: 400,
+                Message: "Dữ liệu không được để trống"
+            });
+        }
         try{
             const [checkkhoa] = await facultyModel.checkFaculty(makhoa);   
                 if(checkkhoa.length === 0)

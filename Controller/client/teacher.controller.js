@@ -74,6 +74,24 @@ import { teacherModel } from '../../Model/Teacher.Model.js';
                 message: 'Invalid status value. Use 1 (Đang Học), 2 (Đình Chỉ), or 3 (Tốt Nghiệp).',
             });
         }
+        if (!magiaovien || !tengiaovien || !tenkhoa || !email || !sdt || !ngaysinh || !status) {
+            return res.status(400).json({
+                status: 400,
+                message: 'Thiếu thông tin',
+            });
+        }
+        if(typeof magiaovien !== 'string' || typeof tengiaovien !== 'string' || typeof tenkhoa !== 'string' || typeof email !== 'string' || typeof sdt !== 'string'){
+            return res.status(400).json({   
+                status: 400,
+                message: 'Kiểu dữ liệu không hợp lệ',
+            });
+        }
+        if (magiaovien.trim() === '' || tengiaovien.trim() === '' || tenkhoa.trim() === '' || email.trim() === '' || sdt.trim() === '' || ngaysinh.trim() === '' || status.trim() === '') {
+            return res.status(400).json({
+                status: 400,
+                message: 'Dữ liệu không được để trống',
+            });
+        }
         try{
             const [checkKhoa] = await teacherModel.checkFaculty(tenkhoa);
                 if (checkKhoa.length === 0) {
@@ -138,6 +156,24 @@ import { teacherModel } from '../../Model/Teacher.Model.js';
                 message: 'Invalid status value. Use 1 (Đang Học), 2 (Đình Chỉ), or 3 (Tốt Nghiệp).',
             });
         }
+        if(!magiaovien || !tengiaovien || !tenkhoa || !email || !sdt || !ngaysinh || !status){
+            return res.status(400).send({
+                status: 400,
+                Message: "Thiếu thông tin"
+            });
+        }
+        if(typeof magiaovien !== 'string' || typeof tengiaovien !== 'string' || typeof tenkhoa !== 'string' || typeof email !== 'string' || typeof sdt !== 'string'){
+            return res.status(400).send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ"
+            });
+        }
+        if(magiaovien.trim() === '' || tengiaovien.trim() === '' || tenkhoa.trim() === '' || email.trim() === '' || sdt.trim() === '' || ngaysinh.trim() === '' || status.trim() === ''){
+            return res.status(400).send({
+                status: 400,
+                Message: "Dữ liệu không được để trống"
+            });
+        }
         try{
             const [checkKhoa] = await teacherModel.checkFaculty(tenkhoa);
                 if (checkKhoa.length === 0) {
@@ -173,6 +209,24 @@ import { teacherModel } from '../../Model/Teacher.Model.js';
     //Delete
     const deleteTeacher = async (req, res) => {
         const magiaovien = req.body.magiaovien;
+        if(!magiaovien){
+            return res.status(400).send({
+                status: 400,
+                Message: "Thiếu thông tin"
+            });
+        }
+        if(typeof magiaovien !== 'string'){
+            return res.status(400).send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ"
+            });
+        }
+        if(magiaovien.trim() === ''){
+            return res.status(400).send({
+                status: 400,
+                Message: "Dữ liệu không được để trống"
+            });
+        }
         try{
             const [checkgiaovien] = await teacherModel.checkTeacher(magiaovien);
                 if(checkgiaovien.length === 0)
@@ -201,6 +255,24 @@ import { teacherModel } from '../../Model/Teacher.Model.js';
             magiaovien,
             status,
         } = req.body;
+        if(!magiaovien || !status){
+            return res.status(400).send({
+                status: 400,
+                Message: "Thiếu thông tin"
+            });
+        }
+        if(typeof magiaovien !== 'string'){
+            return res.status(400).send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ"
+            });
+        }
+        if(magiaovien.trim() === '' || status.trim() === ''){
+            return res.status(400).send({
+                status: 400,
+                Message: "Dữ liệu không được để trống"
+            });
+        }
         if (![1, 2, 3].includes(status)) {
             return res.status(400).json({
                 status: 400,

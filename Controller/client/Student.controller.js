@@ -79,6 +79,25 @@ import { studentModel } from '../../Model/Student.model.js';
                 message: 'Invalid status value. Use 1 (Đang Học), 2 (Đình Chỉ), or 3 (Tốt Nghiệp).',
             });
         }
+        if (!msv || !tensinhvien || !gioitinh || !sdt || !email || !nienkhoa || !tenkhoa || !status) {
+            return res.status(400).json({
+                status: 400,
+                message: 'Thiếu thông tin',
+            });
+        }
+        if(typeof msv !== 'string' || typeof tensinhvien !== 'string' || typeof sdt !== 'string' || typeof email !== 'string' || typeof nienkhoa !== 'string' || typeof tenkhoa !== 'string'){
+            return res.status(400).json({
+                status: 400,
+                message: 'Kiểu dữ liệu không hợp lệ',  
+            });
+        } 
+        if(msv.trim() === '' || tensinhvien.trim() === '' || sdt.trim() === '' || email.trim() === '' || nienkhoa.trim() === '' || tenkhoa.trim() === ''){
+            return res.status(400).json({
+                status: 400,
+                message: 'Dữ liệu không được để trống',
+            });
+        }
+
         try{
             const [checkKhoa] = await studentModel.checkFaculty(tenkhoa);
                 if (checkKhoa.length === 0) {
@@ -132,6 +151,25 @@ import { studentModel } from '../../Model/Student.model.js';
             tenkhoa,
             status,
         } = req.body;
+        if(!msv || !tensinhvien || !gioitinh || !sdt || !email || !nienkhoa || !tenkhoa || !status){
+            return res.status(400).json({
+                status: 400,
+                message: 'Thiếu thông tin',
+            });
+        }
+        if(typeof msv !== 'string' || typeof tensinhvien !== 'string' || typeof sdt !== 'string' || typeof email !== 'string' || typeof nienkhoa !== 'string' || typeof tenkhoa !== 'string'){
+            return res.status(400).json({
+                status: 400,
+                message: 'Kiểu dữ liệu không hợp lệ',
+            });
+        }
+        if(msv.trim() === '' || tensinhvien.trim() === '' || sdt.trim() === '' || email.trim() === '' || nienkhoa.trim() === '' || tenkhoa.trim() === ''){
+            return res.status(400).json({
+                status: 400,
+                message: 'Dữ liệu không được để trống',
+            }); 
+        }
+        
         console.log(req.body);
         if (![1, 2, 3].includes(gioitinh)) {
             return res.status(400).json({
@@ -191,6 +229,24 @@ import { studentModel } from '../../Model/Student.model.js';
                 message: 'Invalid status value. Use 1 (Đang Học), 2 (Đình Chỉ), or 3 (Tốt Nghiệp).',
             });
         }
+        if(!msv || !status){
+            return res.status(400).json({
+                status: 400,
+                message: 'Thiếu thông tin',
+            });
+        }
+        if(typeof msv !== 'string'){
+            return res.status(400).json({
+                status: 400,
+                message: 'Kiểu dữ liệu không hợp lệ',
+            });
+        }
+        if(msv.trim() === '' || status.trim() === ''){
+            return res.status(400).json({
+                status: 400,
+                message: 'Dữ liệu không được để trống',
+            });
+        }
         try{
             const[checkstudent] = await studentModel.checkStudent(msv);
                 if(checkstudent.length === 0)
@@ -215,6 +271,24 @@ import { studentModel } from '../../Model/Student.model.js';
     //Delete
     const deleteStudent = async (req, res) => {
         const msv = req.body.msv;
+        if(!msv){
+            return res.status(400).json({
+                status: 400,
+                message: 'Thiếu thông tin',
+            });
+        }
+        if(typeof msv !== 'string'){
+            return res.status(400).json({
+                status: 400,
+                message: 'Kiểu dữ liệu không hợp lệ',
+            });
+        }
+        if(msv.trim() === ''){
+            return res.status(400).json({
+                status: 400,
+                message: 'Dữ liệu không được để trống',
+            });
+        }
         try{
             const[rows]= await studentModel.checkStudent(msv);
                 if(rows.length === 0)

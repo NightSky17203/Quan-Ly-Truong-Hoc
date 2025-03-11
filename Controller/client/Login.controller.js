@@ -8,13 +8,34 @@ dotenv.config();
 const Login = async(req,res)=>{
     const username = req.body.username;
     const password = req.body.password;
+    if(!username || !password){
+        return res.send({
+            status: 400,
+            Message: "Thiếu thông tin",
+            data: null
+        });
+    }
+    if(typeof username !== 'string' || typeof password !== 'string'){
+        return res.send({
+            status: 400,
+            Message: "Kiểu dữ liệu không hợp lệ",
+            data: null
+        });
+    }
+    if(username.trim() === '' || password.trim() === ''){
+        return res.send({
+            status: 400,
+            Message: "Dữ liệu không được để trống",
+            data: null
+        });
+    }
     try{
         const [user] = await LoginModel.User(username);
         console.log(user);  
         if(user.length === 0){
             return res.send({
                 status: 400,
-                Message: "No user with that username",
+                Message: "Thông tin không hợp lệ",
                 data: null
             });
         }
@@ -22,11 +43,11 @@ const Login = async(req,res)=>{
         if(!checkpassword){
             return res.send({
                 status: 400,
-                Message: "Password incorrect",
+                Message: "Thông tin không hợp lệ",
                 data: null
             });
         }
-        const accessToken = jwt.sign({user: user[0].username},process.env.JWT_SECRET,{expiresIn: '30m'});
+        const accessToken = jwt.sign({user: user[0].username},process.env.JWT_SECRET,{expiresIn: '7d'});
         if (!accessToken) {
             return res
                 .status(401)

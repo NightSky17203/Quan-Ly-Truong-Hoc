@@ -1,6 +1,6 @@
 import express, { query } from 'express'; 
 import teacherController from '../../Controller/client/teacher.controller.js';
-import {verifytoken} from '../../Middleware/auth.Middleware.js';
+import {verifytoken} from '../../Middleware/Auth.middleware.js';
 const router = express.Router();
 
 router.get("/list",verifytoken,teacherController.listTeacher);

@@ -1,5 +1,5 @@
 import express, { application, query } from 'express';
-import {verifytoken} from '../../Middleware/auth.Middleware.js';
+import {verifytoken} from '../../Middleware/Auth.middleware.js';
 const router = express.Router();
 
 router.get("/",verifytoken,(req,res)=>{

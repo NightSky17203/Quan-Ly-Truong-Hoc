@@ -7,6 +7,27 @@ import {registerModel}  from '../../Model/Register.model.js';
         const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
+        if(!username || !password || !email){
+            return res.send({
+                status: 400,
+                Message: "Thiếu thông tin",
+                data: null
+            });
+        }
+        if(typeof username !== 'string' || typeof password !== 'string' || typeof email !== 'string'){
+            return res.send({
+                status: 400,
+                Message: "Kiểu dữ liệu không hợp lệ",
+                data: null
+            });
+        }
+        if(username.trim() === '' || password.trim() === '' || email.trim() === ''){
+            return res.send({
+                status: 400,
+                Message: "Dữ liệu không được để trống",
+                data: null
+            });
+        }
         console.log("received ",username,password,email);
         try{
             const hashPassword = await bcrypt.hash(password,10);
